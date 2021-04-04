@@ -3,8 +3,8 @@ const Usuario = mongoose.model('Usuario');
 
 module.exports = {
     async insert (req, res) {
-        const usuarios = await Usuario.create(req.body);
-        return res.json(usuarios);
+        const usuario = await Usuario.create(req.body);
+        return res.json(usuario);
     },
     async index (req, res) {
         const { page } = req.query;
