@@ -1,5 +1,11 @@
-const userRoute = require('../features/usuario/route');
+const express = require('express');
+const router = express.Router();
+const usuarioController = require('../features/usuario/controller');
 
-module.exports = router => {
-    userRoute(router);
-}
+router.post('/usuario', usuarioController.create);
+router.get('/usuarios', usuarioController.all);
+router.get('/usuario/:id', usuarioController.details);
+router.put('/usuario/:id', usuarioController.update);
+router.delete('/usuario/:id', usuarioController.delete);
+
+module.exports = router;

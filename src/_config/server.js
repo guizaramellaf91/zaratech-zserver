@@ -1,21 +1,32 @@
-const Koa = require('koa');
-const Router = require('koa-router');
+const express = require('express');
 const mongoose = require('mongoose');
-const requireDir = require('require-dir');
-const app = new Koa();
-const router = new Router();
-const applyRoutes = require('./routes');
-const bodyParser = require('koa-bodyparser');
-const cors = require('@koa/cors');
+const app = express();
+const routes = require('./../_config/routes');
+const bodyParser = require('body-parser');
+let port = 5000;
 
 module.exports = () => {
-    console.log('[zserver] Criando um novo servidor! ...');
-    mongoose.connect('mongodb://localhost:27017/zaratech', { useNewUrlParser: true });
-    requireDir('../../src/features/usuario');
-    applyRoutes(router);
-    app.use(cors())
-    .use(bodyParser())
-    .use(router.routes())
-    .use(router.allowedMethods());
-    app.listen(9988);
+    mongoose.connect('mongodb+srv://root:12345@mycluster.mzwho.mongodb.net/zaratech?retryWrites=true');
+    mongoose.connection.on('connected', function () {
+        console.log('Connected to database zaratech...');
+    });
+    mongoose.connection.on('error', (err) => {
+        console.log('Database error ' + err);
+    });
+
+    app.get('/', function (req, res) {
+        res.send('END POINT INVÁLIDO!');
+    });
+
+    app.use(bodyParser.json());
+    app.use('/zserver', routes)
+
+    app.use(function (err, req, res, next) {
+        console.log(err);
+        res.status(422).send({ error: err.message });
+    });
+
+    app.listen(process.env.port || port, () => {
+        console.log('Servidor em execução na porta: ' + port);
+    });
 }
