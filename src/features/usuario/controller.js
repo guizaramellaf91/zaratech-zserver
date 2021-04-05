@@ -9,14 +9,14 @@ exports.create = function (req, res, next) {
 
 exports.all = function (req, res) {
     Usuario.find({}).then(function (u) {
-        console.log('Quantidade de cadastros: ' + u.length);
+        console.log('Quantidade de cadastros: ' + u.length + ' registros.');
         res.send(u);
     });
 };
 
 exports.details = function (req, res) {
     Usuario.findOne({ documento: req.params.id }).then(function (u) {
-        console.log('Dados cadastrais de ' + u.nome);
+        console.log('Dados cadastrais de ' + u.nome + ' ' + u.sobrenome);
         res.send(u);
     });
 };

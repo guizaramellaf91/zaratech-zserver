@@ -30,6 +30,12 @@ const UserSchema = new Schema({
         required: true
     },
     endereco: {
+        bairro: {
+            type: String,
+            required: true,
+            minlength: 3,
+            maxlength: 50
+        },
         cidade: {
             type: String,
             required: true,
