@@ -10,6 +10,13 @@ const UserSchema = new Schema({
         minlength: 3,
         maxlength: 100
     },
+    sobrenome: {
+        type: String,
+        require: true,
+        uppercase: true,
+        minlength: 3,
+        maxlength: 100
+    },
     documento: {
         type: String,
         required: true,
