@@ -14,20 +14,16 @@ module.exports = () => {
         console.log('Error to mongodb: ' + err);
     });
 
-    app.get('/', function (req, res) {
-        res.send('endpoint inválido!');
-    });
-
+    app.get('/', function (req, res) { res.send('endpoint inválido!') });
     app.use(bodyParser.json());
     app.use('/zserver', routes)
-
     app.use(function (err, req, res, next) {
-        res.status(422).send({ 
-            info: 'Ocorreu um erro ao realizar a operação!', 
-            error: 'Descrição do erro: ' + err.message });
+        res.status(422).send({
+            info: 'Ocorreu um erro ao realizar a operação!',
+            error: 'Descrição do erro: ' + err.message
+        });
     });
-
     app.listen(process.env.port || port, () => {
         console.log('Servidor em execução na porta: ' + port);
     });
-}
+};
