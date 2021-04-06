@@ -2,11 +2,9 @@ const Usuario = require('./usuario');
 const jwt = require('jsonwebtoken');
 
 exports.auth = function (req, res, next) {
-    Usuario.findOne({ _id: req.params.id }).then(function(user) {
-        console.log('usuario autenticado!');
-        res.send({
-            token: jwt.sign({ email: user.email }, 'z@r@t3Ch')
-        });
+    Usuario.findOne({ _id: req.params.id }).then(function(u) {
+        console.log('usuario ' + u.nome + ' autenticado!');
+        res.send({token: jwt.sign({ email: u.email }, 'z@r@t3Ch')});
     }).catch(next);
 };
 
@@ -25,7 +23,7 @@ exports.all = function (req, res, next) {
 };
 
 exports.details = function (req, res, next) {
-    Usuario.findOne({ documento: req.params.id }).then(function (u) {
+    Usuario.findOne({ _id: req.params.id }).then(function (u) {
         console.log('dados cadastrais de ' + u.nome);
         res.send(u);
     }).catch(next);
@@ -34,6 +32,7 @@ exports.details = function (req, res, next) {
 exports.update = function (req, res, next) {
     Usuario.findByIdAndUpdate({ _id: req.params.id }, req.body).then(function () {
         Usuario.findOne({ _id: req.params.id }).then(function (u) {
+            console.log('usuario ' + u.nome + ' atualizado!');
             res.send(u);
         });
     }).catch(next);
