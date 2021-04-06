@@ -7,18 +7,18 @@ exports.create = function (req, res, next) {
     }).catch(next);
 };
 
-exports.all = function (req, res) {
+exports.all = function (req, res, next) {
     Usuario.find({}).then(function (u) {
         console.log('Quantidade de cadastros: ' + u.length + ' registros.');
         res.send(u);
-    });
+    }).catch(next);
 };
 
-exports.details = function (req, res) {
+exports.details = function (req, res, next) {
     Usuario.findOne({ documento: req.params.id }).then(function (u) {
-        console.log('Dados cadastrais de ' + u.nome + ' ' + u.sobrenome);
+        console.log('Dados cadastrais de ' + u.nome);
         res.send(u);
-    });
+    }).catch(next);
 };
 
 exports.update = function (req, res, next) {

@@ -10,18 +10,18 @@ const UserSchema = new Schema({
         minlength: 3,
         maxlength: 100
     },
-    sobrenome: {
-        type: String,
-        require: true,
-        uppercase: true,
-        minlength: 3,
-        maxlength: 100
-    },
     documento: {
-        type: String,
+        type: Number,
         required: true,
         minlength: 11,
-        maxlength: 11,
+        maxlength: 14,
+        unique: true
+    },
+    celular: {
+        type: Number,
+        required: true,
+        minlength: 13,
+        maxlength: 13,
         unique: true
     },
     ativo: {
@@ -30,26 +30,44 @@ const UserSchema = new Schema({
         required: true
     },
     endereco: {
+        cep: {
+            type: Number,
+            default: '0',
+            minlength: 8,
+            maxlength: 8  
+        },
+        rua: {
+            type: String,
+            default: 'n/a',
+            minlength: 3,
+            maxlength: 50
+        },
+        numero: {
+            type: Number,
+            default: '0',
+            minlength: 1,
+            maxlength: 50
+        },
         bairro: {
             type: String,
-            required: true,
+            default: 'n/a',
             minlength: 3,
             maxlength: 50
         },
         cidade: {
             type: String,
-            required: true,
+            default: 'n/a',
             minlength: 3,
             maxlength: 100
         },
         estado: {
             type: String,
-            required: true,
+            default: 'NA',
             minlength: 2,
             maxlength: 2
         }
     },
-    registro: {
+    cadastro: {
         type: Date,
         default: Date.now
     }
