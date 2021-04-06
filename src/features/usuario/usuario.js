@@ -24,6 +24,13 @@ const UserSchema = new Schema({
         maxlength: 13,
         unique: true
     },
+    email: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 50,
+        unique: true
+    },
     ativo: {
         type: Boolean,
         default: true,
