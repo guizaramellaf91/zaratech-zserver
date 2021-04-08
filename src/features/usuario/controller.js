@@ -1,3 +1,4 @@
+const keys = require('../../_config/keys');
 const Usuario = require('./usuario');
 const jwt = require('jsonwebtoken');
 
@@ -7,7 +8,7 @@ exports.auth = function (req, res, next) {
         senha: req.body.senha
     }).then(function(u) {
         console.log('usuario ' + u.nome + ' autenticado!');
-        res.send({token: jwt.sign({ email: u.email }, 'z@r@t3Ch')});
+        res.send({token: jwt.sign({ email: u.email }, keys.jsonkey)});
     }).catch(next);
 };
 
