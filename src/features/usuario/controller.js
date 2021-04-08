@@ -2,7 +2,10 @@ const Usuario = require('./usuario');
 const jwt = require('jsonwebtoken');
 
 exports.auth = function (req, res, next) {
-    Usuario.findOne({ _id: req.params.id }).then(function(u) {
+    Usuario.findOne({
+        login: req.body.login,
+        senha: req.body.senha
+    }).then(function(u) {
         console.log('usuario ' + u.nome + ' autenticado!');
         res.send({token: jwt.sign({ email: u.email }, 'z@r@t3Ch')});
     }).catch(next);
