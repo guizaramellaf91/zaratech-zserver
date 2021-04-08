@@ -17,8 +17,8 @@ module.exports = () => {
     });
 
     app.get('/', function (req, res) { res.send('endpoint inválido!') });
-    app.use(cors())
-        .use(bodyParser.json())
+    app.use(bodyParser.json())
+        .use(cors())
         .use('/zserver', routes)
         .use(function (err, req, res, next) {
             res.status(422).send({
