@@ -31,6 +31,19 @@ const ClienteSchema = new Schema({
         maxlength: 50,
         unique: true
     },
+    login: {
+        type: String,
+        required: true,
+        minlength: 3,
+        maxlength: 50,
+        unique: true
+    },
+    senha: {
+        type: String,
+        required: true,
+        minlength: 6,
+        maxlength: 20,
+    },
     ativo: {
         type: Boolean,
         default: true,
@@ -39,7 +52,7 @@ const ClienteSchema = new Schema({
     endereco: {
         cep: {
             type: Number,
-            default: '0',
+            default: '00000000',
             minlength: 8,
             maxlength: 8  
         },

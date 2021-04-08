@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 let port = 5000;
 
 module.exports = () => {
-    mongoose.connect('mongodb+srv://root:12345@mycluster.mzwho.mongodb.net/zaratech?retryWrites=true');
+    //mongoose.connect('mongodb+srv://root:12345@mycluster.mzwho.mongodb.net/zaratech?retryWrites=true');
+    mongoose.connect('mongodb://localhost:27017/zaratech?retryWrites=true');
     mongoose.connection.on('connected', function () {
         console.log('Connected to mongodb!');
     });
