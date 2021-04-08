@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
 const routes = require('./../_config/routes');
@@ -16,14 +17,15 @@ module.exports = () => {
     });
 
     app.get('/', function (req, res) { res.send('endpoint inválido!') });
-    app.use(bodyParser.json());
-    app.use('/zserver', routes)
-    app.use(function (err, req, res, next) {
-        res.status(422).send({
-            info: 'Ocorreu um erro ao realizar a operação!',
-            error: 'Descrição do erro: ' + err.message
+    app.use(bodyParser.json())
+        .use(cors())
+        .use('/zserver', routes)
+        .use(function (err, req, res, next) {
+            res.status(422).send({
+                info: 'Ocorreu um erro ao realizar a operação!',
+                error: 'Descrição do erro: ' + err.message
+            });
         });
-    });
     app.listen(process.env.port || port, () => {
         console.log('Servidor em execução na porta: ' + port);
     });
