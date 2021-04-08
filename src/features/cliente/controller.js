@@ -2,11 +2,12 @@ const Cliente = require('./cliente');
 const jwt = require('jsonwebtoken');
 
 exports.auth = function (req, res, next) {
-    Cliente.findOne({ _id: req.params.id }).then(function(cliente) {
-        console.log('cliente autenticado!');
-        res.send({
-            token: jwt.sign({ email: cliente.email }, 'z@r@t3Ch')
-        });
+    Cliente.findOne({
+        login: req.body.login,
+        senha: req.body.senha
+    }).then(function(cliente) {
+        console.log('cliente ' + cliente.nome + ' autenticado!');
+        res.send({token: jwt.sign({ email: cliente.email }, 'z@r@t3Ch')});
     }).catch(next);
 };
 
