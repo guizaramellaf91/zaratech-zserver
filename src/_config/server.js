@@ -7,13 +7,13 @@ const bodyParser = require('body-parser');
 let port = 5000;
 
 module.exports = () => {
-    //mongoose.connect('mongodb+srv://root:12345@mycluster.mzwho.mongodb.net/zaratech?retryWrites=true');
-    mongoose.connect('mongodb://localhost:27017/zaratech?retryWrites=true');
+    mongoose.connect('mongodb+srv://root:12345@mycluster.mzwho.mongodb.net/zaratech?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true});
+    //mongoose.connect('mongodb://localhost:27017/zaratech?retryWrites=true');
     mongoose.connection.on('connected', function () {
         console.log('Connected to mongodb!');
     });
     mongoose.connection.on('error', (err) => {
-        console.log('Error to mongodb: ' + err);
+        console.log('Failed to connect on mongodb: ' + err);
     });
 
     app.get('/', function (req, res) { res.send('endpoint inválido!') });
